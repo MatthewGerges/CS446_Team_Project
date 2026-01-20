@@ -103,3 +103,6 @@ Signed (Names and GitHub usernames):
 - [Romal Bal] (Rbal26)
 - [Moheb Abdelmasih] (m44abdel)
 - [Chandni Mehta] (cmehta-sfox)
+
+## Note
+This contract was generated with the help of GPT-5.

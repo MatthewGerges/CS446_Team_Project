@@ -1,8 +1,8 @@
-# NAME OF PROJECT
+# Stellar
 
-We will add a project description here once we decide what to do!
+An app to split cost between roommates with an integrated to-do list for the roommates to complete.
 
-- Members: Matthew Gerges (GitHub username: MatthewGerges), ..., ...
+- Members: Daniel Molina (GitHub: DecodertoMux), Matthew Gerges (GitHub: MatthewGerges), Dalya Talsi (GitHub: DALYA TASLI), Apostoli Geyer (GitHub: apostolos-geyer), Romal Bal (GitHub: Rbal26), Moheb Abdelmasih (GitHub: m44abdel), Chandni Mehta (GitHub: cmehta-sfox)
 - Links:
   - [Team contract](./docs/team-contract.md)
   - [Meeting minutes](./docs/meetings.md)

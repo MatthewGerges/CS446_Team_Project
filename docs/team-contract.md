@@ -7,11 +7,13 @@ All team members agree to follow this contract in good faith and revise it if th
 
 ## Team Members
 
-- [Name1] ([GitHubUsername1])
-- [Name2] ([GitHubUsername2])
-- [Name3] ([GitHubUsername3])
-- [Name4] ([GitHubUsername4])
-- [Name5] ([GitHubUsername5])
+- [Daniel Molina] (DecodertoMux)
+- [Matthew Gerges] (MatthewGerges)
+- [Dalya Talsi] ([DALYA TASLI])
+- [Apostoli Geyer] (apostolos-geyer)
+- [Romal Bal] (Rbal26)
+- [Moheb Abdelmasih] (m44abdel)
+- [Chandni Mehta] (cmehta-sfox)
 
 ---
 
@@ -20,36 +22,34 @@ All team members agree to follow this contract in good faith and revise it if th
 Roles are meant to guide responsibility and accountability, not restrict contributions.  
 All members are expected to contribute to coding, design, and discussion as needed.
 
-- **Team Lead**: [Name1]  
+- **Team Lead**: Daniel Molina 
   Responsible for coordinating tasks, setting agendas, tracking progress, and ensuring deadlines are met.
 
-- **Technical Lead**: [Name2]  
+- **Technical Lead**: Matthew Gerges  
   Responsible for technical direction, code quality, best practices, and assisting with debugging and reviews.
 
-- **Design Lead (Front-end / UX)**: [Name3]  
+- **Design Lead (Front-end / UX)**: Dalya Talsi, Chandni Mehta 
   Responsible for UI/UX design decisions and front-end architecture.
 
-- **Design Lead (Back-end / Systems)**: [Name4]  
+- **Design Lead (Back-end / Systems)**: Apostoli Geyer, Romal Bal  
   Responsible for back-end architecture, APIs, and system integration.
 
-- **Testing & Integration Lead**: [Name5]  
+- **Testing & Integration Lead**: Moheb Abdelmasih  
   Responsible for integration, end-to-end testing, and ensuring features work together reliably.
-
-> Note: Members may hold multiple roles, and roles may evolve over the term.
 
 ---
 
 ## Communication
 
-- Primary communication will occur through **[Discord / Slack / Teams]**.
-- Important decisions and updates will be summarized in writing.
+- Primary communication will occur through **[Discord]**.
+- Important decisions and updates will be summarized in ./docs/meetings.md.
 - GitHub Issues and Pull Requests will be used to track work and discussion related to the codebase.
 
 ---
 
 ## Meetings
 
-- The team will meet **once per week** at **[Day / Time]**, with additional meetings scheduled as needed.
+- The team will meet **once per week** at **[Tuesday at 3PM]**, with additional meetings scheduled as needed.
 - Meetings will have a clear agenda prepared ahead of time.
 - All members are expected to attend meetings or notify the team in advance if they are unable to attend.
 - Someone will be designated to take notes for each meeting, and notes will be stored in the `docs/meetings/` directory.
@@ -57,7 +57,6 @@ All members are expected to contribute to coding, design, and discussion as need
 ### Meeting Expectations
 
 - Members will arrive prepared and engaged.
-- Members will not work on other assignments during meetings.
 - Decisions may be made even if not all members are present.
 - Everyone will have the opportunity to speak, and active listening is expected.
 
@@ -95,10 +94,12 @@ Conflict is expected and can be constructive when handled properly.
 
 By participating in this project, all team members agree to uphold the expectations and values outlined in this contract.
 
-Signed (GitHub usernames):
+Signed (Names and GitHub usernames):
 
-- [GitHubUsername1]
-- [GitHubUsername2]
-- [GitHubUsername3]
-- [GitHubUsername4]
-- [GitHubUsername5]
+- [Daniel Molina] (DecodertoMux)
+- [Matthew Gerges] (MatthewGerges)
+- [Dalya Talsi] ([DALYA TASLI])
+- [Apostoli Geyer] (apostolos-geyer)
+- [Romal Bal] (Rbal26)
+- [Moheb Abdelmasih] (m44abdel)
+- [Chandni Mehta] (cmehta-sfox)

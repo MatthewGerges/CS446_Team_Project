@@ -52,7 +52,7 @@ All members are expected to contribute to coding, design, and discussion as need
 - The team will meet **once per week** at **Tuesday at 3PM**, with additional meetings scheduled as needed.
 - Meetings will have a clear agenda prepared ahead of time.
 - All members are expected to attend meetings or notify the team in advance if they are unable to attend.
-- Someone will be designated to take notes for each meeting, and notes will be stored in the [Meeting minutes](./docs/meetings.md) directory.
+- Someone will be designated to take notes for each meeting, and notes will be stored in the [Meeting Notes](./meetings.md) directory.
 
 ### Meeting Expectations
 

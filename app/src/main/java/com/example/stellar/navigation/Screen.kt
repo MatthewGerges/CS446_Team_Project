@@ -1,0 +1,10 @@
+package com.example.stellar.navigation
+
+sealed class Screen(val route: String) {
+    object Signup : Screen("signup")
+    object ProfileSelection : Screen("profile_selection")
+    object Home : Screen("home")
+    object Balance : Screen("balance")
+    object Tasks : Screen("tasks")
+    object Receipts : Screen("receipts")
+}

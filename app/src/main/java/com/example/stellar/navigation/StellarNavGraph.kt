@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.stellar.ui.balance.BalanceScreen
+import com.example.stellar.ui.balance.AddExpenseScreen
 import com.example.stellar.ui.home.HomeScreen
 import com.example.stellar.ui.profile.ProfileSelectionScreen
 import com.example.stellar.ui.receipts.ReceiptUploadScreen
@@ -46,6 +47,17 @@ fun StellarNavGraph(navController: NavHostController) {
         }
         composable(Screen.Receipts.route) {
             ReceiptUploadScreen()
+        }
+        composable(Screen.Balance.route) {
+            BalanceScreen(
+                onAddExpenseClick = { navController.navigate(Screen.AddExpense.route) }
+            )
+        }
+        composable(Screen.AddExpense.route) {
+            AddExpenseScreen(
+                onBack = { navController.popBackStack() },
+                onSaved = { navController.popBackStack() }
+            )
         }
     }
 }

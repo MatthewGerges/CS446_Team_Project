@@ -43,7 +43,7 @@ fun BalanceScreen(viewModel: BalanceViewModel = viewModel()) {
             TopAppBar(title = { Text("Balances") })
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { /* placeholder */ }) {
+            FloatingActionButton(onClick = { onAddExpenseClick}) {
                 Icon(Icons.Filled.Add, contentDescription = "Add Expense")
             }
         }

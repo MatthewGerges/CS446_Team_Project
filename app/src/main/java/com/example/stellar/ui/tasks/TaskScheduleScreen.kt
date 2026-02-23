@@ -40,7 +40,10 @@ import com.example.stellar.data.model.TaskPriority
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TaskScheduleScreen(viewModel: TaskScheduleViewModel = viewModel()) {
+fun TaskScheduleScreen(
+    onAddTaskClick: () -> Unit = {},
+    viewModel: TaskScheduleViewModel = viewModel()
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold(
@@ -48,7 +51,7 @@ fun TaskScheduleScreen(viewModel: TaskScheduleViewModel = viewModel()) {
             TopAppBar(title = { Text("Tasks") })
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { /* placeholder */ }) {
+            FloatingActionButton(onClick = onAddTaskClick) {
                 Icon(Icons.Filled.Add, contentDescription = "Add Task")
             }
         }

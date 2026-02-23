@@ -14,17 +14,26 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -32,6 +41,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.stellar.data.model.BalanceItem
 import kotlin.math.abs
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,6 +50,11 @@ fun BalanceScreen(
     viewModel: BalanceViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val snackbarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
+
+    val (settleTarget, setSettleTarget) = remember { mutableStateOf<BalanceItem?>(null) }
+    val (selectedMethod, setSelectedMethod) = remember { mutableStateOf("Cash") }
 
     Scaffold(
         topBar = {
@@ -49,7 +64,8 @@ fun BalanceScreen(
             FloatingActionButton(onClick = onAddExpenseClick) {
                 Icon(Icons.Filled.Add, contentDescription = "Add Expense")
             }
-        }
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier
@@ -68,7 +84,10 @@ fun BalanceScreen(
                     Text("You Owe", style = MaterialTheme.typography.titleMedium)
                 }
                 items(uiState.youOwe) { item ->
-                    BalanceRow(item = item)
+                    BalanceRow(
+                        item = item,
+                        onSettleUpClick = { setSettleTarget(it) }
+                    )
                 }
             }
 
@@ -78,13 +97,75 @@ fun BalanceScreen(
                     Text("Owed To You", style = MaterialTheme.typography.titleMedium)
                 }
                 items(uiState.owedToYou) { item ->
-                    BalanceRow(item = item)
+                    BalanceRow(
+                        item = item,
+                        onSettleUpClick = { setSettleTarget(it) }
+                    )
                 }
             }
 
             item {
                 Spacer(modifier = Modifier.height(8.dp))
             }
+        }
+
+        settleTarget?.let { target ->
+            LaunchedEffect(target.id) {
+                setSelectedMethod("Cash")
+            }
+
+            AlertDialog(
+                onDismissRequest = { setSettleTarget(null) },
+                title = { Text("Settle up with ${target.personName}?") },
+                text = {
+                    Column {
+                        Text(
+                            text = "You're settling $${String.format("%.2f", abs(target.amount))} with ${target.personName}. How did you pay?",
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        val methods = listOf("Cash", "E-Transfer", "Other")
+                        methods.forEach { method ->
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 4.dp)
+                            ) {
+                                RadioButton(
+                                    selected = selectedMethod == method,
+                                    onClick = { setSelectedMethod(method) }
+                                )
+                                Spacer(modifier = Modifier.padding(start = 8.dp))
+                                Text(method)
+                            }
+                        }
+                    }
+                },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            BalanceRepository.settleUp(
+                                personId = target.id,
+                                method = selectedMethod
+                            )
+                            setSettleTarget(null)
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar(
+                                    message = "Marked as settled with ${target.personName}"
+                                )
+                            }
+                        }
+                    ) {
+                        Text("Confirm")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { setSettleTarget(null) }) {
+                        Text("Cancel")
+                    }
+                }
+            )
         }
     }
 }
@@ -114,7 +195,10 @@ private fun NetBalanceHeader(netBalance: Double) {
 }
 
 @Composable
-private fun BalanceRow(item: BalanceItem) {
+private fun BalanceRow(
+    item: BalanceItem,
+    onSettleUpClick: (BalanceItem) -> Unit
+) {
     ElevatedCard(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -143,7 +227,7 @@ private fun BalanceRow(item: BalanceItem) {
                     )
                 }
             }
-            OutlinedButton(onClick = { /* placeholder */ }) {
+            OutlinedButton(onClick = { onSettleUpClick(item) }) {
                 Text("Settle Up")
             }
         }

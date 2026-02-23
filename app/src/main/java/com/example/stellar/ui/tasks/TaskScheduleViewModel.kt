@@ -3,10 +3,11 @@ package com.example.stellar.ui.tasks
 import androidx.lifecycle.ViewModel
 import com.example.stellar.data.model.Task
 import com.example.stellar.data.model.TaskPriority
-import kotlinx.coroutines.flow.MutableStateFlow
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 
 enum class TaskFilter { ALL, MINE, UPCOMING, COMPLETED }
 
@@ -21,31 +22,49 @@ data class TaskScheduleUiState(
     ),
     val selectedFilter: TaskFilter = TaskFilter.ALL
 ) {
+    private fun parseDueDate(dueDate: String): LocalDate? {
+        if (dueDate.isBlank()) return null
+        val formatter = DateTimeFormatter.ofPattern("MMM d")
+        return try {
+            // Interpret dates as occurring in the current year
+            val monthDay = LocalDate.parse("$dueDate ${LocalDate.now().year}", DateTimeFormatter.ofPattern("MMM d yyyy"))
+            monthDay
+        } catch (e: DateTimeParseException) {
+            try {
+                val parsed = formatter.parse(dueDate)
+                LocalDate.of(
+                    LocalDate.now().year,
+                    parsed.get(java.time.temporal.ChronoField.MONTH_OF_YEAR),
+                    parsed.get(java.time.temporal.ChronoField.DAY_OF_MONTH)
+                )
+            } catch (_: Exception) {
+                null
+            }
+        }
+    }
+
+    private val today: LocalDate
+        get() = LocalDate.now(ZoneId.systemDefault())
+
     val filteredTasks: List<Task>
         get() = when (selectedFilter) {
             TaskFilter.ALL -> tasks
             TaskFilter.MINE -> tasks.filter { it.assignee == "You" }
-            TaskFilter.UPCOMING -> tasks.filter { !it.isCompleted }
+            TaskFilter.UPCOMING -> tasks.filter { task ->
+                !task.isCompleted && parseDueDate(task.dueDate)?.let { it >= today } != false
+            }
             TaskFilter.COMPLETED -> tasks.filter { it.isCompleted }
         }
 }
 
 class TaskScheduleViewModel : ViewModel() {
-    private val _uiState = MutableStateFlow(TaskScheduleUiState())
-    val uiState: StateFlow<TaskScheduleUiState> = _uiState.asStateFlow()
+    val uiState: StateFlow<TaskScheduleUiState> = TaskRepository.uiState
 
     fun onFilterChange(filter: TaskFilter) {
-        _uiState.update { it.copy(selectedFilter = filter) }
+        TaskRepository.setFilter(filter)
     }
 
     fun onToggleComplete(taskId: String) {
-        _uiState.update { state ->
-            state.copy(
-                tasks = state.tasks.map { task ->
-                    if (task.id == taskId) task.copy(isCompleted = !task.isCompleted)
-                    else task
-                }
-            )
-        }
+        TaskRepository.toggleComplete(taskId)
     }
 }

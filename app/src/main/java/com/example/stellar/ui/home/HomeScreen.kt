@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowForward
+import androidx.compose.material.icons.automirrored.outlined.ReceiptLong
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.Payments
 import androidx.compose.material.icons.outlined.ReceiptLong
@@ -101,7 +102,7 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
             }
 
             item {
-                SectionHeader(title = "Recent Activity", icon = Icons.Outlined.ReceiptLong)
+                SectionHeader(title = "Recent Activity", icon = Icons.AutoMirrored.Outlined.ReceiptLong)
                 Spacer(modifier = Modifier.height(12.dp))
                 RecentReceiptsCard(receipts = uiState.recentReceipts)
             }
@@ -301,7 +302,7 @@ private fun RecentReceiptsCard(receipts: List<Receipt>) {
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
-                            Icons.Outlined.ReceiptLong,
+                            Icons.AutoMirrored.Outlined.ReceiptLong,
                             contentDescription = null,
                             tint = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.size(20.dp)

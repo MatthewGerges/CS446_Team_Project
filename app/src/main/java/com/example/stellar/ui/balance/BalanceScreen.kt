@@ -35,7 +35,10 @@ import kotlin.math.abs
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BalanceScreen(viewModel: BalanceViewModel = viewModel()) {
+fun BalanceScreen(
+    onAddExpenseClick: () -> Unit = {},
+    viewModel: BalanceViewModel = viewModel()
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold(
@@ -43,7 +46,7 @@ fun BalanceScreen(viewModel: BalanceViewModel = viewModel()) {
             TopAppBar(title = { Text("Balances") })
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { onAddExpenseClick}) {
+            FloatingActionButton(onClick = onAddExpenseClick) {
                 Icon(Icons.Filled.Add, contentDescription = "Add Expense")
             }
         }

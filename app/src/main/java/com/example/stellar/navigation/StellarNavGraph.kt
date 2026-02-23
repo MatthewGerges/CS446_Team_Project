@@ -40,15 +40,6 @@ fun StellarNavGraph(navController: NavHostController) {
             HomeScreen()
         }
         composable(Screen.Balance.route) {
-            BalanceScreen()
-        }
-        composable(Screen.Tasks.route) {
-            TaskScheduleScreen()
-        }
-        composable(Screen.Receipts.route) {
-            ReceiptUploadScreen()
-        }
-        composable(Screen.Balance.route) {
             BalanceScreen(
                 onAddExpenseClick = { navController.navigate(Screen.AddExpense.route) }
             )
@@ -58,6 +49,12 @@ fun StellarNavGraph(navController: NavHostController) {
                 onBack = { navController.popBackStack() },
                 onSaved = { navController.popBackStack() }
             )
+        }
+        composable(Screen.Tasks.route) {
+            TaskScheduleScreen()
+        }
+        composable(Screen.Receipts.route) {
+            ReceiptUploadScreen()
         }
     }
 }

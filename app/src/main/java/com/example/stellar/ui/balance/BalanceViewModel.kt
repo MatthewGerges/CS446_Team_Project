@@ -20,6 +20,5 @@ data class BalanceUiState(
 }
 
 class BalanceViewModel : ViewModel() {
-    private val _uiState = MutableStateFlow(BalanceUiState())
-    val uiState: StateFlow<BalanceUiState> = _uiState.asStateFlow()
+    val uiState: StateFlow<BalanceUiState> = BalanceRepository.uiState
 }

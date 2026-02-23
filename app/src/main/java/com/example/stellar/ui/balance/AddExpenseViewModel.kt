@@ -42,7 +42,12 @@ class AddExpenseViewModel : ViewModel() {
         val state = _uiState.value
         val amount = state.amount.toDoubleOrNull() ?: return
         if (state.selectedIds.isEmpty()) return
-        // TODO: persist expense (e.g. call repository / BalanceViewModel)
+
+        BalanceRepository.applySharedExpense(
+            totalAmount = amount,
+            participantIds = state.selectedIds
+        )
+
         onSaved()
     }
 

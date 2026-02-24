@@ -4,7 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountBalanceWallet
 import androidx.compose.material.icons.outlined.Checklist
 import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Receipt
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -26,7 +26,7 @@ val bottomNavItems = listOf(
     BottomNavItem(Screen.Home, "Home", Icons.Outlined.Home),
     BottomNavItem(Screen.Balance, "Balance", Icons.Outlined.AccountBalanceWallet),
     BottomNavItem(Screen.Tasks, "Tasks", Icons.Outlined.Checklist),
-    BottomNavItem(Screen.Receipts, "Receipts", Icons.Outlined.Receipt)
+    BottomNavItem(Screen.Profile, "Profile", Icons.Outlined.Person)
 )
 
 @Composable

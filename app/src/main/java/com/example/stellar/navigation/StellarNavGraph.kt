@@ -7,8 +7,11 @@ import androidx.navigation.compose.composable
 import com.example.stellar.ui.balance.AddExpenseScreen
 import com.example.stellar.ui.balance.BalanceScreen
 import com.example.stellar.ui.home.HomeScreen
+import com.example.stellar.ui.profile.HouseholdRepository
+import com.example.stellar.ui.profile.ProfileRepository
 import com.example.stellar.ui.profile.ProfileSelectionScreen
-import com.example.stellar.ui.receipts.ReceiptUploadScreen
+import com.example.stellar.ui.profile.EditProfileScreen
+import com.example.stellar.ui.profile.ProfileScreen
 import com.example.stellar.ui.signup.SignupScreen
 import com.example.stellar.ui.tasks.AddTaskScreen
 import com.example.stellar.ui.tasks.TaskScheduleScreen
@@ -21,7 +24,8 @@ fun StellarNavGraph(navController: NavHostController) {
     ) {
         composable(Screen.Signup.route) {
             SignupScreen(
-                onAuthSuccess = {
+                onAuthSuccess = { name, email ->
+                    ProfileRepository.setFromSignup(name, email)
                     navController.navigate(Screen.ProfileSelection.route) {
                         popUpTo(Screen.Signup.route) { inclusive = true }
                     }
@@ -30,7 +34,9 @@ fun StellarNavGraph(navController: NavHostController) {
         }
         composable(Screen.ProfileSelection.route) {
             ProfileSelectionScreen(
-                onContinue = {
+                onContinue = { displayName ->
+                    ProfileRepository.setDisplayNameFromOnboarding(displayName)
+                    HouseholdRepository.setFirstHousehold(displayName)
                     navController.navigate(Screen.Home.route) {
                         popUpTo(Screen.ProfileSelection.route) { inclusive = true }
                     }
@@ -62,8 +68,16 @@ fun StellarNavGraph(navController: NavHostController) {
                 onSaved = { navController.popBackStack() }
             )
         }
-        composable(Screen.Receipts.route) {
-            ReceiptUploadScreen()
+        composable(Screen.Profile.route) {
+            ProfileScreen(
+                onEditProfile = { navController.navigate(Screen.EditProfile.route) }
+            )
+        }
+        composable(Screen.EditProfile.route) {
+            EditProfileScreen(
+                onBack = { navController.popBackStack() },
+                onSaved = { navController.popBackStack() }
+            )
         }
     }
 }

@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
                     Screen.Home.route,
                     Screen.Balance.route,
                     Screen.Tasks.route,
-                    Screen.Receipts.route
+                    Screen.Profile.route
                 )
 
                 Scaffold(

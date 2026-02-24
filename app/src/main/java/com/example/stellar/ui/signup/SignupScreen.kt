@@ -26,14 +26,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun SignupScreen(
-    onAuthSuccess: () -> Unit,
+    onAuthSuccess: (name: String, email: String) -> Unit,
     viewModel: SignupViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(uiState.isAuthSuccess) {
         if (uiState.isAuthSuccess) {
-            onAuthSuccess()
+            onAuthSuccess(uiState.name, uiState.email)
         }
     }
 

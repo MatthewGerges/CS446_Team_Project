@@ -36,7 +36,7 @@ import com.example.stellar.data.model.Scenario
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileSelectionScreen(
-    onContinue: () -> Unit,
+    onContinue: (displayName: String) -> Unit,
     viewModel: ProfileSelectionViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -101,7 +101,7 @@ fun ProfileSelectionScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             Button(
-                onClick = onContinue,
+                onClick = { onContinue(uiState.profileName) },
                 enabled = uiState.profileName.isNotBlank(),
                 modifier = Modifier
                     .fillMaxWidth()

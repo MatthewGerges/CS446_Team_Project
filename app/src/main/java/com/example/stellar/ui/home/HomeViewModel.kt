@@ -5,9 +5,14 @@ import com.example.stellar.data.model.Receipt
 import com.example.stellar.data.model.ReceiptStatus
 import com.example.stellar.data.model.Task
 import com.example.stellar.data.model.TaskPriority
+import com.example.stellar.ui.profile.ProfileRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 
 data class HomeUiState(
     val userName: String = "User",
@@ -26,5 +31,14 @@ data class HomeUiState(
 
 class HomeViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(HomeUiState())
-    val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
+    val uiState: StateFlow<HomeUiState> = combine(
+        _uiState,
+        ProfileRepository.profile
+    ) { state, profile ->
+        state.copy(userName = profile.displayName)
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = _uiState.value.copy(userName = ProfileRepository.profile.value.displayName)
+    )
 }

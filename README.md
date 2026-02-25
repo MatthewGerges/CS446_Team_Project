@@ -9,3 +9,5 @@ The backend for this project is maintained in a separate repository for readabil
   - [Backend Repo] (https://github.com/DecodertoMux/CS446_Team_Project_Backend)
   - [Team contract](./docs/team-contract.md)
   - [Meeting minutes](./docs/meetings.md)
+
+

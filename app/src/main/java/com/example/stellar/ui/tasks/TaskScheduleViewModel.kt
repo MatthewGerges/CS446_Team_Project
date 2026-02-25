@@ -13,9 +13,9 @@ enum class TaskFilter { ALL, MINE, UPCOMING, COMPLETED }
 
 data class TaskScheduleUiState(
     val tasks: List<Task> = listOf(
-        Task("1", "Buy groceries", "You", "Feb 16", priority = TaskPriority.HIGH),
+        Task("1", "Buy groceries", "You", "Mar 16", priority = TaskPriority.HIGH),
         Task("2", "Do laundry", "Alice", "Feb 17", priority = TaskPriority.MEDIUM),
-        Task("3", "Buy detergent", "You", "Feb 18", priority = TaskPriority.LOW),
+        Task("3", "Buy detergent", "You", "Mar 18", priority = TaskPriority.LOW),
         Task("4", "Clean kitchen", "Bob", "Feb 19", priority = TaskPriority.HIGH),
         Task("5", "Change bedsheets", "You", "Feb 20", priority = TaskPriority.MEDIUM),
         Task("6", "Take out trash", "Charlie", "Feb 15", isCompleted = true, priority = TaskPriority.LOW)

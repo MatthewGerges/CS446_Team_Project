@@ -34,9 +34,9 @@ fun StellarNavGraph(navController: NavHostController) {
         }
         composable(Screen.ProfileSelection.route) {
             ProfileSelectionScreen(
-                onContinue = { displayName ->
-                    ProfileRepository.setDisplayNameFromOnboarding(displayName)
-                    HouseholdRepository.setFirstHousehold(displayName)
+                onContinue = { householdName ->
+                    // Only set household name, not user's display name (which comes from signup)
+                    HouseholdRepository.setFirstHousehold(householdName)
                     navController.navigate(Screen.Home.route) {
                         popUpTo(Screen.ProfileSelection.route) { inclusive = true }
                     }
